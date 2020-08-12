@@ -1,0 +1,21 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "plugins": ["react", "react-native", "react-hooks", "jsx-a11y"],
+  "parser": "babel-eslint",
+  "extends": ["airbnb", "airbnb/hooks", "plugin:react-hooks/recommended"],
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "func-names": 0,
+    "react/jsx-filename-extension": 0,
+    "no-use-before-define": 0
+  }
+}
