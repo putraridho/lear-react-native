@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { StyleSheet, TextInput } from 'react-native';
 
-const Input = ({ onSubmitEditing, ...props }) => {
+const Input = ({ onSubmitEditing, placeholder }) => {
   const [text, setText] = useState('');
 
   return (
     <TextInput
       style={styles.input}
+      placeholder={placeholder}
       value={text}
       onChangeText={(val) => setText(val)}
       onSubmitEditing={() => {
@@ -14,7 +15,6 @@ const Input = ({ onSubmitEditing, ...props }) => {
         onSubmitEditing(text);
         setText('');
       }}
-      {...props}
     />
   );
 };
