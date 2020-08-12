@@ -1,5 +1,5 @@
-import React, { useCallback } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import React, { useCallback } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 function Toggle({ label, options, value, onChange }) {
   const renderOption = useCallback(
@@ -25,7 +25,7 @@ function Toggle({ label, options, value, onChange }) {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "column",
+    flexDirection: 'column',
     paddingBottom: 20,
   },
   text: {
@@ -35,15 +35,15 @@ const styles = StyleSheet.create({
     padding: 4,
   },
   optionsContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   option: {
     padding: 4,
-    backgroundColor: "whitesmoke",
+    backgroundColor: 'whitesmoke',
   },
   activeOption: {
-    backgroundColor: "skyblue",
+    backgroundColor: 'skyblue',
   },
 });
 

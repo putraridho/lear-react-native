@@ -1,23 +1,32 @@
-import React, { useState } from "react";
-import { StyleSheet, View, StatusBar } from "react-native";
-import Title from "./Title";
-import Input from "./Input";
-import List from "./List";
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View, StatusBar } from 'react-native';
+
+import { actionCreators } from './todoListRedux';
+import Title from './Title';
+import Input from './Input';
+import List from './List';
+
+import store from './store';
 
 export default function App() {
-  const [todos, setTodos] = useState([
-    "click to remove",
-    "Learn React Native",
-    "Write Code",
-    "Ship App",
-  ]);
+  const [todos, setTodos] = useState([]);
+
+  useEffect(() => {
+    setTodos(store.getState().todos);
+
+    const unsubscribe = store.subscribe(() => {
+      setTodos(store.getState().todos);
+    });
+
+    return unsubscribe;
+  }, []);
 
   const onAddTodo = (text) => {
-    setTodos((curr) => [text, ...curr]);
+    store.dispatch(actionCreators.add(text));
   };
 
   const onRemoveTodo = (index) => {
-    setTodos((curr) => curr.filter((_, i) => i !== index));
+    store.dispatch(actionCreators.remove(index));
   };
 
   return (
@@ -25,7 +34,7 @@ export default function App() {
       <StatusBar />
       <Title>To-Do List</Title>
       <Input
-        placeholder={"Type a todo, then hit enter!"}
+        placeholder="Type a todo, then hit enter!"
         onSubmitEditing={onAddTodo}
       />
       <List list={todos} onPressItem={onRemoveTodo} />

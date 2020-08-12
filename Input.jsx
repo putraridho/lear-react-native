@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { StyleSheet, TextInput } from "react-native";
+import React, { useState } from 'react';
+import { StyleSheet, TextInput } from 'react-native';
 
 const Input = ({ onSubmitEditing, ...props }) => {
-  const [text, setText] = useState("");
+  const [text, setText] = useState('');
 
   return (
     <TextInput
@@ -12,7 +12,7 @@ const Input = ({ onSubmitEditing, ...props }) => {
       onSubmitEditing={() => {
         if (!text) return;
         onSubmitEditing(text);
-        setText("");
+        setText('');
       }}
       {...props}
     />

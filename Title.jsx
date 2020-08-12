@@ -1,5 +1,5 @@
-import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import React from 'react';
+import { StyleSheet, View, Text } from 'react-native';
 
 const Title = ({ children }) => {
   return (
@@ -11,12 +11,12 @@ const Title = ({ children }) => {
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: "skyblue",
+    backgroundColor: 'skyblue',
     padding: 15,
   },
   title: {
-    textAlign: "center",
-    color: "white",
+    textAlign: 'center',
+    color: 'white',
   },
 });
 export default Title;

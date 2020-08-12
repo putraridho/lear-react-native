@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Text } from "react-native";
+import React, { useState, useEffect } from 'react';
+import { Text } from 'react-native';
 
 function Counter({ color, size }) {
   const [count, setCount] = useState(0);
