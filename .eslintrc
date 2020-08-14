@@ -15,9 +15,11 @@
   },
   "rules": {
     "func-names": 0,
-    "react/jsx-filename-extension": 0,
     "no-use-before-define": 0,
+    "object-curly-newline": 0,
+    "react/jsx-filename-extension": 0,
     "react/prop-types": 0,
-    "react/jsx-props-no-spreading": 0
+    "react/jsx-props-no-spreading": 0,
+    "react/jsx-one-expression-per-line": 0
   }
 }
