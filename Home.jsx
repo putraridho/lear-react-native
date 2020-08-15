@@ -1,46 +1,42 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
 
-import * as Animatable from 'react-native-animatable';
+import { StyleSheet, Text, TouchableOpacity, Animated } from 'react-native';
 
-const colors = ['#7986CB', '#5C6BC0', '#3F51B5', '#3949AB', '#303F9F'];
-const animations = ['fadeIn', 'shake', 'rubberBand', 'zoomOut'];
+const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity);
 
 function Home() {
-  const [animation, setAnimation] = useState(animations[0]);
+  const [height] = useState(new Animated.Value(100));
 
-  const renderItem = (color, i) => (
-    <Animatable.View
-      key={i}
-      animation={animation}
-      delay={i * 100}
-      style={[styles.button, { backgroundColor: color }]}
-    >
-      <Text style={styles.text}>Tap me {i}</Text>
-    </Animatable.View>
-  );
+  const startAnimation = () => {
+    height.setValue(100);
 
-  const nextAnimation = () => {
-    const nextIndex = (animations.indexOf(animation) + 1) % animations.length;
-    setAnimation(animations[nextIndex]);
+    Animated.spring(height, {
+      toValue: 300,
+      friction: 0.8,
+      useNativeDriver: false,
+    }).start();
   };
 
+  useEffect(() => {
+    startAnimation();
+  }, []);
+
   return (
-    <TouchableOpacity key={animation} onPress={nextAnimation}>
-      {colors.map(renderItem)}
-    </TouchableOpacity>
+    <AnimatedTouchableOpacity onPress={startAnimation} style={[styles.button, { height }]}>
+      <Text style={styles.text}>Tap Me</Text>
+    </AnimatedTouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   button: {
-    height: 80,
+    backgroundColor: 'steelblue',
     justifyContent: 'center',
     alignItems: 'center',
   },
   text: {
     color: 'white',
-    fontSize: 20,
+    fontSize: 42,
   },
 });
 
