@@ -12,7 +12,7 @@ function Toggle({ label, options, value, onChange }) {
         <Text style={styles.text}>{option}</Text>
       </TouchableOpacity>
     ),
-    [onChange, value]
+    [onChange, value],
   );
 
   return (

@@ -1,102 +1,47 @@
-import React, { useEffect } from 'react';
-import { ScrollView, View, ActivityIndicator, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { connect } from 'react-redux';
-import { actionCreators } from './postsRedux';
+import React, { useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-function Home({ error, loading, posts, dispatch }) {
-  useEffect(() => {
-    dispatch(actionCreators.fetchPosts());
-  }, [dispatch]);
+import * as Animatable from 'react-native-animatable';
 
-  const refresh = async () => {
-    await dispatch(actionCreators.clearPosts());
-    dispatch(actionCreators.fetchPosts());
-  };
+const colors = ['#7986CB', '#5C6BC0', '#3F51B5', '#3949AB', '#303F9F'];
+const animations = ['fadeIn', 'shake', 'rubberBand', 'zoomOut'];
 
-  const renderPost = ({ id, title, body }, i) => (
-    <View key={id} style={styles.post}>
-      <View style={styles.postNumber}>
-        <Text>{i + 1}</Text>
-      </View>
-      <View style={styles.postContent}>
-        <Text>{title}</Text>
-        <Text style={styles.postBody}>{body}</Text>
-      </View>
-    </View>
+function Home() {
+  const [animation, setAnimation] = useState(animations[0]);
+
+  const renderItem = (color, i) => (
+    <Animatable.View
+      key={i}
+      animation={animation}
+      delay={i * 100}
+      style={[styles.button, { backgroundColor: color }]}
+    >
+      <Text style={styles.text}>Tap me {i}</Text>
+    </Animatable.View>
   );
 
-  if (loading) {
-    return (
-      <View style={styles.center}>
-        <ActivityIndicator animating />
-      </View>
-    );
-  }
-
-  if (error) {
-    return (
-      <View style={styles.center}>
-        <Text>Failed to load posts!</Text>
-      </View>
-    );
-  }
+  const nextAnimation = () => {
+    const nextIndex = (animations.indexOf(animation) + 1) % animations.length;
+    setAnimation(animations[nextIndex]);
+  };
 
   return (
-    <View style={styles.container}>
-      <ScrollView style={styles.container}>{posts.map(renderPost)}</ScrollView>
-      <TouchableOpacity style={styles.button} onPress={refresh}>
-        <Text>Refresh</Text>
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity key={animation} onPress={nextAnimation}>
+      {colors.map(renderItem)}
+    </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  post: {
-    flexDirection: 'row',
-  },
-  postNumber: {
-    width: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  postContent: {
-    flex: 1,
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-    paddingVertical: 25,
-    paddingRight: 15,
-  },
-  postBody: {
-    marginTop: 10,
-    fontSize: 12,
-    color: 'lightgray',
-  },
-  center: {
-    flex: 1,
+  button: {
+    height: 80,
     justifyContent: 'center',
     alignItems: 'center',
   },
   text: {
-    padding: 15,
-    backgroundColor: 'skyblue',
-  },
-  button: {
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderTopWidth: 1,
-    borderTopColor: 'lightgray',
+    color: 'white',
+    fontSize: 20,
   },
 });
 
-const mapStateToProps = ({ loading, error, posts }) => ({
-  loading,
-  error,
-  posts,
-});
-
-export default connect(mapStateToProps)(Home);
+export default Home;
